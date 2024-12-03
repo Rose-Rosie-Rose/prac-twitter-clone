@@ -1,4 +1,5 @@
 $background: #1e293b;
+$activeBg: #3c495f5f;
 $white: #fff;
 $border: #708090;
 $primaryColor: #60a5fa;
@@ -42,4 +43,84 @@ body {
   border: none;
   cursor: pointer;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+// home 레이아웃
+.home {
+  &__title {
+    padding: 16px;
+    font-weight: 700;
+    font-size: 20px;
+  }
+
+  &__tabs {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  &__tab {
+    text-align: center;
+    font-weight: 500;
+    padding: 16px;
+    cursor: pointer;
+
+    &--active {
+      font-weight: 700;
+      border-bottom: 2px solid $activeBorder;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: $activeBg;
+    }
+  }
+}
+
+.post-form {
+  &__textarea {
+    font-family: $font;
+    min-height: 120px;
+    display: block;
+    width: calc(100% - 32px);
+    padding: 16px;
+    border: none;
+    resize: none;
+    outline: none;
+    font-size: 20px;
+    border-bottom: 1px solid $border;
+
+    &::placeholder {
+      font-family: $font;
+      color: $grayText;
+      font-size: 20px;
+    }
+  }
+
+  &__submit-area {
+    display: flex;
+    padding: 0.75rem 1rem;
+    justify-content: space-between;
+    border-bottom: 1px solid $border;
+
+    .post-form__file {
+      display: flex;
+      padding: 0 1rem;
+      flex-direction: column;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .post-form {
+      &__submit-btn {
+        @extend .button;
+        padding: 0.5rem 1rem;
+        background-color: $primaryColor;
+      }
+    }
+  }
 }

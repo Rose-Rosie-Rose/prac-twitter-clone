@@ -53,7 +53,7 @@ export const HomePage = () => {
 
   return (
     <div className="home">
-      <div className="hoome__title">Home</div>
+      <div className="home__title">Home</div>
       <div className="home__tabs">
         <div className="home__tab home__tab--active">For You</div>
         <div className="home__tab">Following</div>
@@ -61,7 +61,7 @@ export const HomePage = () => {
       {/* Post form  */}
       <form className="post-form">
         <textarea
-          className="pst-form__textarea"
+          className="post-form__textarea"
           required
           name="content"
           id="content"
