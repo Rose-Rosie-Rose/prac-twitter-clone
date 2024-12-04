@@ -107,7 +107,7 @@ export const HomePage = () => {
                 <div className="post__box-content">{post?.content}</div>
               </div>
             </Link>
-            <div className="post__Box-footer">
+            <div className="post__box-footer">
               {/* post.uid === user.uid 일 때 */}
               <>
                 <button
