@@ -1,9 +1,12 @@
+import { AuthContext } from "context";
+import { useContext } from "react";
 import { BsHouse } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
-import { MdLogout } from "react-icons/md";
+import { MdLogout, MdLogin } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 export const MenuList = () => {
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleNavigation = (path: string) => {
@@ -21,10 +24,20 @@ export const MenuList = () => {
           <FaUserCircle />
           Profile
         </button>
-        <button type="button" onClick={() => handleNavigation("/")}>
-          <MdLogout />
-          Logout
-        </button>
+        {user === null ? (
+          <button
+            type="button"
+            onClick={() => handleNavigation("/users/login")}
+          >
+            <MdLogin />
+            Login
+          </button>
+        ) : (
+          <button type="button" onClick={() => handleNavigation("/")}>
+            <MdLogout />
+            Logout
+          </button>
+        )}
       </div>
     </div>
   );
