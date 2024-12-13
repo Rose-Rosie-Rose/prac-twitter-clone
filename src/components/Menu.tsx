@@ -1,9 +1,12 @@
 import { AuthContext } from "context";
+import { getAuth, signOut } from "firebase/auth";
+import { app } from "firebaseApp";
 import { useContext } from "react";
 import { BsHouse } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
 import { MdLogout, MdLogin } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const MenuList = () => {
   const { user } = useContext(AuthContext);
@@ -11,6 +14,12 @@ export const MenuList = () => {
 
   const handleNavigation = (path: string) => {
     navigate(path);
+  };
+
+  const hadnleLogout = async () => {
+    const auth = getAuth(app);
+    await signOut(auth);
+    toast.success("로그아웃 되었습니다.");
   };
 
   return (
@@ -33,7 +42,7 @@ export const MenuList = () => {
             Login
           </button>
         ) : (
-          <button type="button" onClick={() => handleNavigation("/")}>
+          <button type="button" onClick={hadnleLogout}>
             <MdLogout />
             Logout
           </button>
