@@ -313,4 +313,8 @@ body {
       color: $gray;
     }
   }
+
+  &__error{
+    color: red;
+  }
 }
