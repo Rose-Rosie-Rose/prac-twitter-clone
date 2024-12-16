@@ -157,7 +157,7 @@ export const SignUpForm = () => {
         >
           회원가입
         </button>
-      </div>{" "}
+      </div>
       <div className="form__block">
         <button
           type="button"
@@ -167,7 +167,7 @@ export const SignUpForm = () => {
         >
           Google로 회원가입
         </button>
-      </div>{" "}
+      </div>
       <div className="form__block">
         <button
           type="button"
