@@ -123,6 +123,16 @@ export const SignUpForm = () => {
         >
           회원가입
         </button>
+      </div>{" "}
+      <div className="form__block">
+        <button type="submit" className="form__btn--google">
+          Google로 회원가입
+        </button>
+      </div>{" "}
+      <div className="form__block">
+        <button type="submit" className="form__btn--github">
+          Github으로 회원가입
+        </button>
       </div>
     </form>
   );
