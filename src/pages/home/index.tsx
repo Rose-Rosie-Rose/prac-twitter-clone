@@ -1,4 +1,5 @@
 import { PostBox, PostForm } from "components";
+import { useEffect, useState } from "react";
 
 export interface PostProps {
   id: string;
@@ -11,38 +12,11 @@ export interface PostProps {
   comments?: any;
 }
 
-const posts: PostProps[] = [
-  {
-    id: "1",
-    email: "test@test.com",
-    content: "Hello, world!",
-    createdAt: "2022-01-01",
-    uid: "123123",
-  },
-  {
-    id: "2",
-    email: "test@test.com",
-    content: "Hello, world!",
-    createdAt: "2022-01-01",
-    uid: "123123",
-  },
-  {
-    id: "3",
-    email: "test@test.com",
-    content: "Hello, world!",
-    createdAt: "2022-01-01",
-    uid: "123123",
-  },
-  {
-    id: "4",
-    email: "test@test.com",
-    content: "Hello, world!",
-    createdAt: "2022-01-01",
-    uid: "123123",
-  },
-];
-
 export const HomePage = () => {
+  const [posts, setPosts] = useState<PostProps[]>([]);
+
+  // useEffect(() => {}, []);
+
   return (
     <div className="home">
       <div className="home__top">
@@ -54,9 +28,13 @@ export const HomePage = () => {
       </div>
       <PostForm />
       <div className="post">
-        {posts?.map((post) => (
-          <PostBox post={post} key={post.id} />
-        ))}
+        {posts?.length > 0 ? (
+          posts?.map((post) => <PostBox post={post} key={post.id} />)
+        ) : (
+          <div className="post__no-posts">
+            <div className="post__text">게시글이 없습니다.</div>
+          </div>
+        )}
       </div>
     </div>
   );
