@@ -36,7 +36,7 @@ export const PostEditForm = () => {
         });
       }
 
-      navigate(`posts/${post?.id}`);
+      navigate(`/posts/${post?.id}`);
       toast.success("게시글을 수정했습니다.");
     } catch (e: any) {
       console.log(e);
