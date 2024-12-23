@@ -26,7 +26,7 @@ export const PostForm = () => {
         }),
         uid: user?.uid,
         email: user?.email,
-        hashtags: tags,
+        hashTags: tags,
       });
 
       setTags([]);

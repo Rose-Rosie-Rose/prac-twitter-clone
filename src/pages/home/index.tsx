@@ -13,6 +13,7 @@ export interface PostProps {
   profileUrl?: string;
   likeCount?: number;
   comments?: any;
+  hashTags?: string[];
 }
 
 export const HomePage = () => {
