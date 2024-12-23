@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 export const PostForm = () => {
   const [content, setContent] = useState<string>("");
+  const [tags, setTags] = useState<string[]>([]);
   const { user } = useContext(AuthContext);
 
   const handleFileUpload = () => {};
@@ -54,6 +55,19 @@ export const PostForm = () => {
         onChange={onChangeHandler}
         value={content}
       />
+      <div className="post-form__hashtags">
+        {tags.map((tag, index) => (
+          <span className="post-form__hashtag-tag" key={index}>
+            #{tag}
+          </span>
+        ))}
+        <input
+          className="post-from__input"
+          name="hashtag"
+          id="hashtag"
+          placeholder="해시태그 + 스페이스바 입력"
+        />
+      </div>
       <div className="post-form__submit-area">
         <label htmlFor="file-input" className="post-form__file">
           <FiImage className="post-form__file-icon" />
