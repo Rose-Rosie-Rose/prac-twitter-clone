@@ -56,11 +56,13 @@ export const PostForm = () => {
         value={content}
       />
       <div className="post-form__hashtags">
-        {tags.map((tag, index) => (
-          <span className="post-form__hashtag-tag" key={index}>
-            #{tag}
-          </span>
-        ))}
+        <span className="post-form__hashtags--outputs">
+          {tags.map((tag, index) => (
+            <span className="post-form__hashtag-tag" key={index}>
+              #{tag}
+            </span>
+          ))}
+        </span>
         <input
           className="post-from__input"
           name="hashtag"
