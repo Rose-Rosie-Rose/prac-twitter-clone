@@ -56,15 +56,15 @@ export const PostForm = () => {
         value={content}
       />
       <div className="post-form__hashtags">
-        <span className="post-form__hashtags--outputs">
+        <span className="post-form__hashtags-outputs">
           {tags.map((tag, index) => (
-            <span className="post-form__hashtag-tag" key={index}>
+            <span className="post-form__hashtags-tag" key={index}>
               #{tag}
             </span>
           ))}
         </span>
         <input
-          className="post-from__input"
+          className="post-form__input"
           name="hashtag"
           id="hashtag"
           placeholder="해시태그 + 스페이스바 입력"
