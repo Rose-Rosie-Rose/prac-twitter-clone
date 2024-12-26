@@ -4,6 +4,7 @@ import { app } from "firebaseApp";
 import { useContext } from "react";
 import { BsHouse } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
+import { AiOutlineSearch } from "react-icons/ai";
 import { MdLogout, MdLogin } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -32,6 +33,10 @@ export const MenuList = () => {
         <button type="button" onClick={() => handleNavigation("/profile")}>
           <FaUserCircle />
           Profile
+        </button>
+        <button type="button" onClick={() => handleNavigation("/search")}>
+          <AiOutlineSearch />
+          Search
         </button>
         {user === null ? (
           <button
