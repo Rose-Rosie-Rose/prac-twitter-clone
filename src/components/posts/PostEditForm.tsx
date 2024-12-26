@@ -9,9 +9,9 @@ import { toast } from "react-toastify";
 export const PostEditForm = () => {
   const params = useParams();
   const [post, setPost] = useState<PostProps | null>(null);
-  const [content, setContent] = useState<string>("");
   const [hashTag, setHashTag] = useState<string>("");
   const [tags, setTags] = useState<string[]>([]);
+  const [content, setContent] = useState<string>("");
   const navigate = useNavigate();
 
   const handleFileUpload = () => {};
@@ -20,7 +20,6 @@ export const PostEditForm = () => {
     if (params.id) {
       const docRef = doc(db, "posts", params.id);
       const docSnap = await getDoc(docRef);
-
       setPost({ ...(docSnap?.data() as PostProps), id: docSnap.id });
       setContent(docSnap?.data()?.content);
       setTags(docSnap?.data()?.hashTags);
@@ -33,15 +32,14 @@ export const PostEditForm = () => {
     try {
       if (post) {
         const postRef = doc(db, "posts", post?.id);
-
         await updateDoc(postRef, {
           content: content,
           hashTags: tags,
         });
-      }
 
-      navigate(`/posts/${post?.id}`);
-      toast.success("게시글을 수정했습니다.");
+        navigate(`/posts/${post?.id}`);
+        toast.success("게시글을 수정했습니다.");
+      }
     } catch (e: any) {
       console.log(e);
     }
@@ -77,9 +75,7 @@ export const PostEditForm = () => {
   };
 
   useEffect(() => {
-    if (params.id) {
-      getPost();
-    }
+    if (params.id) getPost();
   }, [getPost, params.id]);
 
   return (
@@ -90,12 +86,11 @@ export const PostEditForm = () => {
         name="content"
         id="content"
         placeholder="What is happening?"
-        onChange={onChangeHandler}
         value={content}
       />
       <div className="post-form__hashtags">
         <span className="post-form__hashtags-outputs">
-          {tags.map((tag, index) => (
+          {tags?.map((tag, index) => (
             <span
               className="post-form__hashtags-tag"
               key={index}

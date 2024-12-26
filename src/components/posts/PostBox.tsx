@@ -55,7 +55,7 @@ export const PostBox = ({ post }: PostBoxProps) => {
         </div>
       </Link>
       <div className="post__box-footer">
-        {user?.uid === post.uid && (
+        {user?.uid === post?.uid && (
           <>
             <button
               type="button"

@@ -2,6 +2,7 @@ import { PostBox } from "components";
 import { AuthContext } from "context";
 import {
   collection,
+  getDocs,
   onSnapshot,
   orderBy,
   query,
@@ -16,7 +17,7 @@ export const SearchPage = () => {
   const [tagQuery, setTagQuery] = useState<string>("");
   const { user } = useContext(AuthContext);
 
-  const handleOnChange = (e: any) => {
+  const onChange = (e: any) => {
     setTagQuery(e?.target?.value?.trim());
   };
 
@@ -29,9 +30,9 @@ export const SearchPage = () => {
         orderBy("createdAt", "desc")
       );
 
-      onSnapshot(postsQuery, (snapshot) => {
-        let dataObj = snapshot?.docs?.map((doc) => ({
-          ...doc.data(),
+      onSnapshot(postsQuery, (snapShot) => {
+        let dataObj = snapShot?.docs?.map((doc) => ({
+          ...doc?.data(),
           id: doc?.id,
         }));
 
@@ -50,20 +51,18 @@ export const SearchPage = () => {
           <input
             className="home__search"
             placeholder="해시태그 검색"
-            onChange={handleOnChange}
+            onChange={onChange}
           />
         </div>
       </div>
       <div className="post">
-        <div className="post">
-          {posts?.length > 0 ? (
-            posts?.map((post) => <PostBox post={post} key={post.id} />)
-          ) : (
-            <div className="post__no--posts">
-              <div className="post__text">게시글이 없습니다.</div>
-            </div>
-          )}
-        </div>
+        {posts?.length > 0 ? (
+          posts?.map((post) => <PostBox post={post} key={post.id} />)
+        ) : (
+          <div className="post__no-posts">
+            <div className="post__text">게시글이 없습니다.</div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ export const PostForm = () => {
     try {
       await addDoc(collection(db, "posts"), {
         content: content,
-        createAt: new Date()?.toLocaleDateString("ko", {
+        createdAt: new Date()?.toLocaleDateString("ko", {
           hour: "2-digit",
           minute: "2-digit",
           second: "2-digit",
@@ -80,7 +80,7 @@ export const PostForm = () => {
       />
       <div className="post-form__hashtags">
         <span className="post-form__hashtags-outputs">
-          {tags.map((tag, index) => (
+          {tags?.map((tag, index) => (
             <span
               className="post-form__hashtags-tag"
               key={index}
