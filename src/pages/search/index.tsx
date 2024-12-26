@@ -1,6 +1,15 @@
 import { PostBox } from "components";
+import { PostProps } from "pages/home";
+import { useState } from "react";
 
 export const SearchPage = () => {
+  const [posts, setPosts] = useState<PostProps[]>([]);
+  const [tagQuery, setTagQuery] = useState<string>("");
+
+  const handleOnChange = (e: any) => {
+    setTagQuery(e?.target?.value?.trim());
+  };
+
   return (
     <div className="home">
       <div className="home__top">
@@ -8,7 +17,11 @@ export const SearchPage = () => {
           <div className="home__title-text">Search</div>
         </div>
         <div className="home__search-div">
-          <input className="home__search" placeholder="해시태그 검색" />
+          <input
+            className="home__search"
+            placeholder="해시태그 검색"
+            onChange={handleOnChange}
+          />
         </div>
       </div>
       <div className="post">
