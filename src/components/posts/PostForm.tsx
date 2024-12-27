@@ -9,9 +9,23 @@ export const PostForm = () => {
   const [content, setContent] = useState<string>("");
   const [hashTag, setHashTag] = useState<string>("");
   const [tags, setTags] = useState<string[]>([]);
+  const [imageFile, setImageFile] = useState<string>("");
   const { user } = useContext(AuthContext);
 
-  const handleFileUpload = () => {};
+  const handleFileUpload = (e: any) => {
+    const {
+      target: { files },
+    } = e;
+
+    const file = files?.[0];
+    const fileReader = new FileReader();
+    fileReader?.readAsDataURL(file);
+
+    fileReader.onloadend = (e: any) => {
+      const { result } = e?.currentTarget;
+      setImageFile(result);
+    };
+  };
 
   const onSubmitHandler = async (e: any) => {
     e.preventDefault();
@@ -101,16 +115,24 @@ export const PostForm = () => {
         />
       </div>
       <div className="post-form__submit-area">
-        <label htmlFor="file-input" className="post-form__file">
-          <FiImage className="post-form__file-icon" />
-        </label>
-        <input
-          type="file"
-          name="file-input"
-          accept="image/*"
-          onChange={handleFileUpload}
-          className="hidden"
-        />
+        <div className="post-form__image-area">
+          <label htmlFor="file-input" className="post-form__file">
+            <FiImage className="post-form__file-icon" />
+          </label>
+          <input
+            type="file"
+            name="file-input"
+            id="file-input"
+            accept="image/*"
+            onChange={handleFileUpload}
+            className="hidden"
+          />
+          {imageFile && (
+            <div className="post-form__attachment">
+              <img src={imageFile} alt="attachment" width={100} height={100} />
+            </div>
+          )}
+        </div>
         <input type="submit" value="Tweet" className="post-form__submit-btn" />
       </div>
     </form>
