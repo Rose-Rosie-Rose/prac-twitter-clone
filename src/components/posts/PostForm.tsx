@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 export const PostForm = () => {
   const [content, setContent] = useState<string>("");
   const [hashTag, setHashTag] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [tags, setTags] = useState<string[]>([]);
   const [imageFile, setImageFile] = useState<string | null>(null);
   const { user } = useContext(AuthContext);
@@ -28,6 +29,7 @@ export const PostForm = () => {
   };
 
   const onSubmitHandler = async (e: any) => {
+    setIsSubmitting(true);
     e.preventDefault();
 
     try {
@@ -47,6 +49,7 @@ export const PostForm = () => {
       setHashTag("");
       setContent("");
       toast.success("게시글을 생성했습니다.");
+      setIsSubmitting(false);
     } catch (e: any) {
       console.log(e);
     }
@@ -144,7 +147,12 @@ export const PostForm = () => {
             </div>
           )}
         </div>
-        <input type="submit" value="Tweet" className="post-form__submit-btn" />
+        <input
+          type="submit"
+          value="Tweet"
+          className="post-form__submit-btn"
+          disabled={isSubmitting}
+        />
       </div>
     </form>
   );
