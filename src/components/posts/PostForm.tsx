@@ -1,9 +1,11 @@
 import { AuthContext } from "context";
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "firebaseApp";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { db, storage } from "firebaseApp";
 import { useContext, useState } from "react";
 import { FiImage } from "react-icons/fi";
 import { toast } from "react-toastify";
+import { v4 as uuidv4 } from "uuid";
 
 export const PostForm = () => {
   const [content, setContent] = useState<string>("");
@@ -30,9 +32,17 @@ export const PostForm = () => {
 
   const onSubmitHandler = async (e: any) => {
     setIsSubmitting(true);
+    const key = `${user?.uid}/${uuidv4()}`;
+    const storageRef = ref(storage, key);
     e.preventDefault();
 
     try {
+      let imageUrl = "";
+      if (imageFile) {
+        const data = await uploadString(storageRef, imageFile, "data_url");
+        imageUrl = await getDownloadURL(data?.ref);
+      }
+
       await addDoc(collection(db, "posts"), {
         content: content,
         createdAt: new Date()?.toLocaleDateString("ko", {
@@ -43,11 +53,13 @@ export const PostForm = () => {
         uid: user?.uid,
         email: user?.email,
         hashTags: tags,
+        imageUrl: imageUrl,
       });
 
       setTags([]);
       setHashTag("");
       setContent("");
+      setImageFile(null);
       toast.success("게시글을 생성했습니다.");
       setIsSubmitting(false);
     } catch (e: any) {
