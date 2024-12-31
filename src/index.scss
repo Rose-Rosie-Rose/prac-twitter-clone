@@ -264,6 +264,10 @@ body {
 
 // Post 레이아웃
 .post {
+  &__image-div {
+    padding: 16px;
+  }
+
   &__header {
     button {
       border: none;
