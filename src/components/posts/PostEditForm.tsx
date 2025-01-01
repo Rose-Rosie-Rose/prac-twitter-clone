@@ -12,9 +12,24 @@ export const PostEditForm = () => {
   const [hashTag, setHashTag] = useState<string>("");
   const [tags, setTags] = useState<string[]>([]);
   const [content, setContent] = useState<string>("");
+  const [imageFile, setImageFile] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const handleFileUpload = () => {};
+  const handleFileUpload = (e: any) => {
+    const {
+      target: { files },
+    } = e;
+
+    const file = files?.[0];
+    const fileReader = new FileReader();
+    fileReader?.readAsDataURL(file);
+
+    fileReader.onloadend = (e: any) => {
+      const { result } = e?.currentTarget;
+      setImageFile(result);
+    };
+  };
 
   const getPost = useCallback(async () => {
     if (params.id) {
@@ -27,6 +42,7 @@ export const PostEditForm = () => {
   }, [params.id]);
 
   const onSubmitHandler = async (e: any) => {
+    setIsSubmitting(true);
     e.preventDefault();
 
     try {
@@ -40,6 +56,7 @@ export const PostEditForm = () => {
         navigate(`/posts/${post?.id}`);
         toast.success("게시글을 수정했습니다.");
       }
+      setIsSubmitting(false);
     } catch (e: any) {
       console.log(e);
     }
@@ -74,6 +91,10 @@ export const PostEditForm = () => {
     }
   };
 
+  const handleDeleteImage = () => {
+    setImageFile(null);
+  };
+
   useEffect(() => {
     if (params.id) getPost();
   }, [getPost, params.id]);
@@ -86,6 +107,7 @@ export const PostEditForm = () => {
         name="content"
         id="content"
         placeholder="What is happening?"
+        onChange={onChangeHandler}
         value={content}
       />
       <div className="post-form__hashtags">
@@ -111,17 +133,37 @@ export const PostEditForm = () => {
         />
       </div>
       <div className="post-form__submit-area">
-        <label htmlFor="file-input" className="post-form__file">
-          <FiImage className="post-form__file-icon" />
-        </label>
+        <div className="post-form__image-area">
+          <label htmlFor="file-input" className="post-form__file">
+            <FiImage className="post-form__file-icon" />
+          </label>
+          <input
+            type="file"
+            name="file-input"
+            id="file-input"
+            accept="image/*"
+            onChange={handleFileUpload}
+            className="hidden"
+          />
+          {imageFile && (
+            <div className="post-form__attachment">
+              <img src={imageFile} alt="attachment" width={100} height={100} />
+              <button
+                className="post-form__clear-btn"
+                type="button"
+                onClick={handleDeleteImage}
+              >
+                Clear
+              </button>
+            </div>
+          )}
+        </div>
         <input
-          type="file"
-          name="file-input"
-          accept="image/*"
-          onChange={handleFileUpload}
-          className="hidden"
+          type="submit"
+          value="수정"
+          className="post-form__submit-btn"
+          disabled={isSubmitting}
         />
-        <input type="submit" value="수정" className="post-form__submit-btn" />
       </div>
     </form>
   );
