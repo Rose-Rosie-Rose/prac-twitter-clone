@@ -38,6 +38,7 @@ export const PostEditForm = () => {
       setPost({ ...(docSnap?.data() as PostProps), id: docSnap.id });
       setContent(docSnap?.data()?.content);
       setTags(docSnap?.data()?.hashTags);
+      setImageFile(docSnap?.data()?.imageUrl);
     }
   }, [params.id]);
 
