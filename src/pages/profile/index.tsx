@@ -10,9 +10,13 @@ import {
 import { db } from "firebaseApp";
 import { PostProps } from "pages/home";
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const PROFILE_DEFAULT_URL = "/logo512.png";
 
 export const ProfilePage = () => {
   const [posts, setPosts] = useState<PostProps[]>([]);
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
@@ -38,6 +42,28 @@ export const ProfilePage = () => {
     <div className="home">
       <div className="home__top">
         <div className="home__title">Profile</div>
+        <div className="profile">
+          <img
+            src={user?.photoURL || PROFILE_DEFAULT_URL}
+            alt="profile"
+            className="profile__image"
+            width={100}
+            height={100}
+          />
+          <button
+            type="button"
+            className="profile__btn"
+            onClick={() => {
+              navigate("/profile/edit");
+            }}
+          >
+            프로필 수정
+          </button>
+        </div>
+        <div className="profile__text">
+          <div className="profile__name">{user?.displayName || "사용자님"}</div>
+          <div className="profile__email">{user?.email}</div>
+        </div>
         <div className="home__tabs">
           <div className="home__tab home__tab--active">For You</div>
           <div className="home__tab">Likes</div>
