@@ -4,9 +4,12 @@ import { FiImage } from "react-icons/fi";
 
 export const ProfileEditPage = () => {
   const [displayName, setDisplayName] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string>("");
   const HandleOnChange = () => {};
 
   const handleFileUpload = () => {};
+
+  const handleDeleteImage = () => {};
 
   return (
     <div className="post">
@@ -21,6 +24,18 @@ export const ProfileEditPage = () => {
             onChange={HandleOnChange}
             value={displayName}
           />
+          {imageUrl && (
+            <div className="post-form__attachment">
+              <img src={imageUrl} alt="attachment" width={100} height={100} />
+              <button
+                type="button"
+                onClick={handleDeleteImage}
+                className="post-form__clear-btn"
+              >
+                삭제
+              </button>
+            </div>
+          )}
           <div className="post-form__submit-area">
             <div className="post-form__image-area">
               <label className="post-form__file" htmlFor="file-input">
