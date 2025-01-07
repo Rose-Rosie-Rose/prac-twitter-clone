@@ -1,15 +1,40 @@
 import { PostHeader } from "components";
-import { useState } from "react";
+import { AuthContext } from "context";
+import { useContext, useEffect, useState } from "react";
 import { FiImage } from "react-icons/fi";
 
 export const ProfileEditPage = () => {
   const [displayName, setDisplayName] = useState<string>("");
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const { user } = useContext(AuthContext);
+
   const HandleOnChange = () => {};
 
-  const handleFileUpload = () => {};
+  const handleFileUpload = (e: any) => {
+    const {
+      target: { files },
+    } = e;
 
-  const handleDeleteImage = () => {};
+    const file = files?.[0];
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+
+    fileReader.onloadend = (e: any) => {
+      const { result } = e?.currentTarget;
+      setImageUrl(result);
+    };
+  };
+
+  const handleDeleteImage = () => {
+    setImageUrl(null);
+  };
+
+  useEffect(() => {
+    console.log(user);
+    if (user?.photoURL) {
+      setImageUrl(user?.photoURL);
+    }
+  }, [user?.photoURL]);
 
   return (
     <div className="post">
