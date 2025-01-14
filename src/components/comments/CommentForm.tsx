@@ -1,5 +1,9 @@
+import { AuthContext } from "context";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { db } from "firebaseApp";
 import { PostProps } from "pages";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { toast } from "react-toastify";
 
 export interface CommentProps {
   post: PostProps | null;
@@ -7,8 +11,38 @@ export interface CommentProps {
 
 export const CommentForm = ({ post }: CommentProps) => {
   const [comment, setComment] = useState<string>("");
+  const { user } = useContext(AuthContext);
 
-  const onSubmitHandler = () => {};
+  const onSubmitHandler = async (e: any) => {
+    e.preventDefault();
+
+    if (post && user) {
+      const postRef = doc(db, "posts", post?.id);
+
+      const commentObj = {
+        comment: comment,
+        uid: user?.uid,
+        email: user?.email,
+        createdAt: new Date()?.toLocaleDateString("ko", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        }),
+      };
+
+      await updateDoc(postRef, {
+        comments: arrayUnion(commentObj),
+      });
+
+      toast.success("댓글을 생성했습니다.");
+      setComment("");
+
+      try {
+      } catch (e: any) {
+        console.log(e);
+      }
+    }
+  };
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const {
