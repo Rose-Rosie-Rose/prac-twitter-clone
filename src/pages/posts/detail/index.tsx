@@ -1,4 +1,4 @@
-import { Loader, PostBox, PostHeader } from "components";
+import { CommentForm, Loader, PostBox, PostHeader } from "components";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "firebaseApp";
 import { PostProps } from "pages/home";
@@ -25,7 +25,14 @@ export const PostDetailPage = () => {
   return (
     <div className="post">
       <PostHeader />
-      {post ? <PostBox post={post} /> : <Loader />}
+      {post ? (
+        <>
+          <PostBox post={post} />
+          <CommentForm post={post} />
+        </>
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 };
