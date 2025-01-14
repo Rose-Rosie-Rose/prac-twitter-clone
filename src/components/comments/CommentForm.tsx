@@ -5,11 +5,11 @@ import { PostProps } from "pages";
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 
-export interface CommentProps {
+export interface CommentFormProps {
   post: PostProps | null;
 }
 
-export const CommentForm = ({ post }: CommentProps) => {
+export const CommentForm = ({ post }: CommentFormProps) => {
   const [comment, setComment] = useState<string>("");
   const { user } = useContext(AuthContext);
 
