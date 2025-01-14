@@ -5,7 +5,7 @@ import { PostProps } from "pages";
 import { useContext } from "react";
 import { toast } from "react-toastify";
 
-interface CommentProps {
+export interface CommentProps {
   comment: string;
   uid: string;
   email: string;
@@ -20,7 +20,21 @@ interface CommentBoxProps {
 export const CommentBox = ({ data, post }: CommentBoxProps) => {
   const { user } = useContext(AuthContext);
 
-  const handleDeleteComment = async () => {};
+  const handleDeleteComment = async () => {
+    if (post) {
+      try {
+        const postRef = doc(db, "posts", post?.id);
+
+        await updateDoc(postRef, {
+          comments: arrayRemove(data),
+        });
+
+        toast.success("댓글을 삭제했습니다.");
+      } catch (e: any) {
+        console.log(e);
+      }
+    }
+  };
 
   return (
     <div key={data?.createdAt} className="comment">

@@ -1,4 +1,11 @@
-import { CommentForm, Loader, PostBox, PostHeader } from "components";
+import {
+  CommentBox,
+  CommentForm,
+  CommentProps,
+  Loader,
+  PostBox,
+  PostHeader,
+} from "components";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "firebaseApp";
 import { PostProps } from "pages/home";
@@ -29,6 +36,12 @@ export const PostDetailPage = () => {
         <>
           <PostBox post={post} />
           <CommentForm post={post} />
+          {post?.comments
+            ?.slice(0)
+            ?.reverse()
+            ?.map((data: CommentProps, index: number) => (
+              <CommentBox data={data} key={index} post={post} />
+            ))}
         </>
       ) : (
         <Loader />
