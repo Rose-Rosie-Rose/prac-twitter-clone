@@ -9,3 +9,4 @@ export * from "./users/LoginForm";
 export * from "./users/SignUpForm";
 export * from "./loader/Loader";
 export * from "./comments/CommentForm";
+export * from "./comments/CommentBox";
