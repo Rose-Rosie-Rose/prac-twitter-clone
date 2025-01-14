@@ -6,7 +6,7 @@ import {
   PostBox,
   PostHeader,
 } from "components";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "firebaseApp";
 import { PostProps } from "pages/home";
 import { useCallback, useEffect, useState } from "react";
@@ -19,9 +19,10 @@ export const PostDetailPage = () => {
   const getPost = useCallback(async () => {
     if (params.id) {
       const docRef = doc(db, "posts", params.id);
-      const docSnap = await getDoc(docRef);
 
-      setPost({ ...(docSnap?.data() as PostProps), id: docSnap?.id });
+      onSnapshot(docRef, (doc) => {
+        setPost({ ...(doc?.data() as PostProps), id: doc.id });
+      });
     }
   }, [params.id]);
 
