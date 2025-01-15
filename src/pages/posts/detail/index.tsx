@@ -1,5 +1,12 @@
-import { Loader, PostBox, PostHeader } from "components";
-import { doc, getDoc } from "firebase/firestore";
+import {
+  CommentBox,
+  CommentForm,
+  CommentProps,
+  Loader,
+  PostBox,
+  PostHeader,
+} from "components";
+import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "firebaseApp";
 import { PostProps } from "pages/home";
 import { useCallback, useEffect, useState } from "react";
@@ -12,9 +19,10 @@ export const PostDetailPage = () => {
   const getPost = useCallback(async () => {
     if (params.id) {
       const docRef = doc(db, "posts", params.id);
-      const docSnap = await getDoc(docRef);
 
-      setPost({ ...(docSnap?.data() as PostProps), id: docSnap?.id });
+      onSnapshot(docRef, (doc) => {
+        setPost({ ...(doc?.data() as PostProps), id: doc.id });
+      });
     }
   }, [params.id]);
 
@@ -25,7 +33,20 @@ export const PostDetailPage = () => {
   return (
     <div className="post">
       <PostHeader />
-      {post ? <PostBox post={post} /> : <Loader />}
+      {post ? (
+        <>
+          <PostBox post={post} />
+          <CommentForm post={post} />
+          {post?.comments
+            ?.slice(0)
+            ?.reverse()
+            ?.map((data: CommentProps, index: number) => (
+              <CommentBox data={data} key={index} post={post} />
+            ))}
+        </>
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 };
