@@ -1,3 +1,4 @@
+import { FollowingBox } from "components/following/FollowingBox";
 import { AuthContext } from "context";
 import {
   arrayRemove,
@@ -75,7 +76,7 @@ export const PostBox = ({ post }: PostBoxProps) => {
               <div className="post__email">{post?.email}</div>
               <div className="post__createdAt">{post?.createdAt}</div>
             </div>
-            <button className="post__following-btn">Following</button>
+            <FollowingBox post={post} />
           </div>
         </div>
         <Link to={`/posts/${post?.id}`}>
