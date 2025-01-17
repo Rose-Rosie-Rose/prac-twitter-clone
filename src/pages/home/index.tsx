@@ -18,8 +18,11 @@ export interface PostProps {
   imageUrl?: string;
 }
 
+type tabType = "all" | "following";
+
 export const HomePage = () => {
   const [posts, setPosts] = useState<PostProps[]>([]);
+  const [activeTab, setActiveTab] = useState<tabType>("all");
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
@@ -42,8 +45,22 @@ export const HomePage = () => {
       <div className="home__top">
         <div className="home__title">Home</div>
         <div className="home__tabs">
-          <div className="home__tab home__tab--active">For You</div>
-          <div className="home__tab">Following</div>
+          <div
+            className={`home__tab ${
+              activeTab === "all" && "home__tab--active"
+            }`}
+            onClick={() => setActiveTab("all")}
+          >
+            All
+          </div>
+          <div
+            className={`home__tab ${
+              activeTab === "following" && "home__tab--active"
+            }`}
+            onClick={() => setActiveTab("following")}
+          >
+            Following
+          </div>
         </div>
       </div>
       <PostForm />
