@@ -1,3 +1,4 @@
+import { NotificationBox } from "components";
 import { AuthContext } from "context";
 import {
   collection,
@@ -13,7 +14,7 @@ export interface NotificationProps {
   id: string;
   uid: string;
   url: string;
-  isRead: string;
+  isRead: boolean;
   content: string;
   createdAt: string;
 }
@@ -51,7 +52,9 @@ export const NotificationsPage = () => {
       </div>
       <div className="post">
         {notifications?.length > 0 ? (
-          notifications?.map((noti) => <div key={noti.id}>{noti?.content}</div>)
+          notifications?.map((noti) => (
+            <NotificationBox notification={noti} key={noti.id} />
+          ))
         ) : (
           <div className="post__no-posts">
             <div className="post__text">알림이 없습니다.</div>
