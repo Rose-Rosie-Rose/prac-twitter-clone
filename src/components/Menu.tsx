@@ -8,6 +8,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { MdLogout, MdLogin } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { IoMdNotificationsOutline } from "react-icons/io";
 
 export const MenuList = () => {
   const { user } = useContext(AuthContext);
@@ -37,6 +38,13 @@ export const MenuList = () => {
         <button type="button" onClick={() => handleNavigation("/search")}>
           <AiOutlineSearch />
           Search
+        </button>
+        <button
+          type="button"
+          onClick={() => handleNavigation("/notifications")}
+        >
+          <IoMdNotificationsOutline />
+          Notifications
         </button>
         {user === null ? (
           <button
