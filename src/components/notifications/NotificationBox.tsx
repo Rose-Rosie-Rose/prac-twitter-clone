@@ -2,6 +2,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "firebaseApp";
 import { NotificationProps } from "pages";
 import { useNavigate } from "react-router-dom";
+import styles from "./Notification.module.scss";
 
 export const NotificationBox = ({
   notification,
@@ -11,8 +12,7 @@ export const NotificationBox = ({
   const navigate = useNavigate();
 
   const onClickNotification = async (url: string) => {
-    const ref = doc(db, "notification", notification.id);
-
+    const ref = doc(db, "notifications", notification.id);
     await updateDoc(ref, {
       isRead: true,
     });
@@ -21,17 +21,17 @@ export const NotificationBox = ({
   };
 
   return (
-    <div key={notification.id} className="notification">
+    <div key={notification.id} className={styles.notification}>
       <div onClick={() => onClickNotification(notification?.url)}>
-        <div className="notification__flex">
-          <div className="notification__createdAt">
+        <div className={styles.notification__flex}>
+          <div className={styles.notification__createdAt}>
             {notification?.createdAt}
           </div>
           {notification?.isRead === false && (
-            <div className="notification__unread" />
+            <div className={styles.notification__unread} />
           )}
         </div>
-        <div className="notification__content">{notification?.content}</div>
+        <div className="notification__content">{notification.content}</div>
       </div>
     </div>
   );
