@@ -44,7 +44,7 @@ export const MenuList = () => {
           onClick={() => handleNavigation("/notifications")}
         >
           <IoMdNotificationsOutline />
-          Notifications
+          Notification
         </button>
         {user === null ? (
           <button

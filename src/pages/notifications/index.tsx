@@ -1,3 +1,3 @@
 export const NotificationsPage = () => {
-  return <>Notifications Page</>;
+  return <div></div>;
 };
