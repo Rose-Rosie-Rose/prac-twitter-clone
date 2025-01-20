@@ -42,5 +42,22 @@ export const NotificationsPage = () => {
     }
   }, [user]);
 
-  return <div></div>;
+  return (
+    <div className="home">
+      <div className="home__top">
+        <div className="home__title">
+          <div className="home__title-text">Notification</div>
+        </div>
+      </div>
+      <div className="post">
+        {notifications?.length > 0 ? (
+          notifications?.map((noti) => <div key={noti.id}>{noti?.content}</div>)
+        ) : (
+          <div className="post__no-posts">
+            <div className="post__text">알림이 없습니다.</div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
