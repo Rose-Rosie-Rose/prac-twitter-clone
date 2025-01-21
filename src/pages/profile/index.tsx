@@ -1,3 +1,4 @@
+import { languageState } from "atom";
 import { PostBox } from "components";
 import { AuthContext } from "context";
 import {
@@ -11,6 +12,7 @@ import { db } from "firebaseApp";
 import { PostProps } from "pages/home";
 import { act, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 
 const PROFILE_DEFAULT_URL = "/logo512.png";
 type TabType = "my" | "like";
@@ -21,6 +23,7 @@ export const ProfilePage = () => {
   const [likePosts, setLikePosts] = useState<PostProps[]>([]);
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const [language, setLanguage] = useRecoilState(languageState);
 
   useEffect(() => {
     if (user) {
@@ -67,15 +70,20 @@ export const ProfilePage = () => {
             width={100}
             height={100}
           />
-          <button
-            type="button"
-            className="profile__btn"
-            onClick={() => {
-              navigate("/profile/edit");
-            }}
-          >
-            프로필 수정
-          </button>
+          <div className="profile__flex">
+            <button
+              type="button"
+              className="profile__btn"
+              onClick={() => {
+                navigate("/profile/edit");
+              }}
+            >
+              프로필 수정
+            </button>
+            <button type="button" className="profile__btn" onClick={() => {}}>
+              {language}
+            </button>
+          </div>
         </div>
         <div className="profile__text">
           <div className="profile__name">{user?.displayName || "사용자님"}</div>
