@@ -554,6 +554,16 @@ body {
     @extend .button;
     background-color: $primaryColor;
 
+    &--language {
+      @extend .button;
+      background-color: $gray;
+
+      &:hover,
+      &:focus {
+        background-color: $grayDark;
+      }
+    }
+
     &:hover,
     &:focus {
       background-color: $activeBorder;
