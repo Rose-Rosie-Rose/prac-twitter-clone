@@ -22,8 +22,13 @@ export const ProfilePage = () => {
   const [myPosts, setMyPosts] = useState<PostProps[]>([]);
   const [likePosts, setLikePosts] = useState<PostProps[]>([]);
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
   const [language, setLanguage] = useRecoilState(languageState);
+  const { user } = useContext(AuthContext);
+
+  const handleOnClickLanguage = () => {
+    setLanguage(language === "ko" ? "en" : "ko");
+    localStorage.setItem("language", language === "ko" ? "en" : "ko");
+  };
 
   useEffect(() => {
     if (user) {
@@ -80,8 +85,12 @@ export const ProfilePage = () => {
             >
               프로필 수정
             </button>
-            <button type="button" className="profile__btn" onClick={() => {}}>
-              {language}
+            <button
+              type="button"
+              className="profile__btn--language"
+              onClick={handleOnClickLanguage}
+            >
+              {language === "ko" ? "한국어" : "English"}
             </button>
           </div>
         </div>
