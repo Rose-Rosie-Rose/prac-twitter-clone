@@ -1,4 +1,4 @@
-export const TRANSLATIONS = {
+const TRANSLATIONS = {
   MENU_HOME: {
     ko: "홈",
     en: "Home",
@@ -24,3 +24,5 @@ export const TRANSLATIONS = {
     en: "login",
   },
 };
+
+export default TRANSLATIONS;
