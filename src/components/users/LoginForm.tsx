@@ -6,6 +6,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { app } from "firebaseApp";
+import { useTranslation } from "hooks";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -15,6 +16,7 @@ export const LoginForm = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
+  const t = useTranslation();
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
@@ -89,9 +91,9 @@ export const LoginForm = () => {
 
   return (
     <form className="form form--lg" onSubmit={onSubmit}>
-      <div className="form__title">로그인</div>
+      <div className="form__title">{t("MENU_LOGIN")}</div>
       <div className="form__block">
-        <label className="email">이메일</label>
+        <label className="email">{t("FORM_EMAIL")}</label>
         <input
           type="text"
           name="email"
@@ -102,7 +104,7 @@ export const LoginForm = () => {
         />
       </div>
       <div className="form__block">
-        <label className="password">비밀번호</label>
+        <label className="password">{t("FORM_PASSWORD")}</label>
         <input
           type="password"
           name="password"
@@ -118,9 +120,9 @@ export const LoginForm = () => {
         </div>
       )}
       <div className="form__block">
-        계정이 없으신가요?
+        {t("NO_ACCOUNT")}
         <Link to="/users/signup" className="form__link">
-          회원가입하기
+          {t("SIGNUP_LINK")}
         </Link>
       </div>
       <div className="form__block--lg">
@@ -129,7 +131,7 @@ export const LoginForm = () => {
           className="form__btn--submit"
           disabled={error?.length > 0}
         >
-          로그인
+          {t("SIGNUP_LINK")}
         </button>
       </div>
       <div className="form__block">
@@ -139,7 +141,7 @@ export const LoginForm = () => {
           className="form__btn--google"
           onClick={onClickSocialLogin}
         >
-          Google로 로그인
+          {t("LOGIN_WITH_GOOGLE")}
         </button>
       </div>
       <div className="form__block">
@@ -149,7 +151,7 @@ export const LoginForm = () => {
           className="form__btn--github"
           onClick={onClickSocialLogin}
         >
-          Github으로 로그인
+          {t("LOGIN_WITH_GITHUB")}
         </button>
       </div>
     </form>
