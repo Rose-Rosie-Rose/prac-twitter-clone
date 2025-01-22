@@ -7,6 +7,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "firebaseApp";
+import { useTranslation } from "hooks";
 import { PostProps } from "pages";
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
@@ -18,6 +19,7 @@ export interface CommentFormProps {
 export const CommentForm = ({ post }: CommentFormProps) => {
   const [comment, setComment] = useState<string>("");
   const { user } = useContext(AuthContext);
+  const t = useTranslation();
 
   const truncate = (str: string) => {
     return str?.length > 10 ? str?.substring(0, 10) + "..." : str;
@@ -85,7 +87,7 @@ export const CommentForm = ({ post }: CommentFormProps) => {
         name="comment"
         id="comment"
         required
-        placeholder="What is happening?"
+        placeholder={t("POST_PLACEHOLDER")}
         onChange={onChangeHandler}
         value={comment}
       />
@@ -93,7 +95,7 @@ export const CommentForm = ({ post }: CommentFormProps) => {
         <div />
         <input
           type="submit"
-          value="comment"
+          value={t("BUTTON_COMMENT")}
           className="post-form__submit-btn"
           disabled={!comment}
         />

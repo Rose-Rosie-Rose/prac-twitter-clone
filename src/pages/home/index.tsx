@@ -9,6 +9,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "firebaseApp";
+import { useTranslation } from "hooks";
 import { useCallback, useContext, useEffect, useState } from "react";
 
 export interface PostProps {
@@ -37,6 +38,7 @@ export const HomePage = () => {
   const [followingIds, setFollowingIds] = useState<string[]>([""]);
   const [activeTab, setActiveTab] = useState<tabType>("all");
   const { user } = useContext(AuthContext);
+  const t = useTranslation();
 
   const getFollowingIds = useCallback(async () => {
     if (user?.uid) {
@@ -89,7 +91,7 @@ export const HomePage = () => {
   return (
     <div className="home">
       <div className="home__top">
-        <div className="home__title">Home</div>
+        <div className="home__title">{t("MENU_HOME")}</div>
         <div className="home__tabs">
           <div
             className={`home__tab ${
@@ -97,7 +99,7 @@ export const HomePage = () => {
             }`}
             onClick={() => setActiveTab("all")}
           >
-            All
+            {t("TAB_ALL")}
           </div>
           <div
             className={`home__tab ${
@@ -105,7 +107,7 @@ export const HomePage = () => {
             }`}
             onClick={() => setActiveTab("following")}
           >
-            Following
+            {t("TAB_FOLLOWING")}
           </div>
         </div>
       </div>
@@ -116,7 +118,7 @@ export const HomePage = () => {
             posts?.map((post) => <PostBox post={post} key={post.id} />)
           ) : (
             <div className="post__no-posts">
-              <div className="post__text">게시글이 없습니다.</div>
+              <div className="post__text">{t("NO_POSTS")}</div>
             </div>
           )}
         </div>
@@ -127,7 +129,7 @@ export const HomePage = () => {
             followingPosts?.map((post) => <PostBox post={post} key={post.id} />)
           ) : (
             <div className="post__no-posts">
-              <div className="post__text">게시글이 없습니다.</div>
+              <div className="post__text">{t("NO_POSTS")}</div>
             </div>
           )}
         </div>
