@@ -68,6 +68,10 @@ body {
     grid-template-columns: repeat(5, minmax(0, 1fr));
     background-color: transparent;
 
+    &--text {
+      background-color: transparent;
+    }
+
     button {
       border: none;
       display: flex;
@@ -84,6 +88,50 @@ body {
         backdrop-filter: blur(10px);
       }
     }
+  }
+}
+
+@include xsMobile {
+  .footer {
+    display: none;
+  }
+
+  .layout {
+    border: none;
+  }
+}
+
+@include mobile {
+  .footer {
+    &__grid {
+      &--text {
+        display: none;
+      }
+      button {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .layout {
+    border: none;
+  }
+}
+
+@include tablet {
+  .footer {
+    &__grid {
+      &--text {
+        display: none;
+      }
+      button {
+        font-size: 24px;
+      }
+    }
+  }
+
+  .layout {
+    border: none;
   }
 }
 
